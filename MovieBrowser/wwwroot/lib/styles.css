@@ -10,3 +10,6 @@ body {
     background-attachment: fixed;
     font-family: 'Arimo', sans-serif;
 }
+movie-thumbnail{
+    margin: 3px;
+}

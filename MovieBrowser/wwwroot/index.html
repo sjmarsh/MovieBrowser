@@ -18,77 +18,16 @@
 </head>
 <body>
     <div id="app" class="container-fluid">
-        <h1>Movie Details</h1>
+        <h1>Movies</h1>
         <div v-if="loading">
             Loading...
         </div>
         <div v-else>
-            <div class="container">
-                <div class="row">
-                    <div class="col-4">
-                        Title
-                    </div>
-                    <div class="col-8">
-                        {{movieDetail.localTitle}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-4">
-                        Production Year
-                    </div>
-                    <div class="col-8">
-                        {{movieDetail.productionYear}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-4">
-                        Rating
-                    </div>
-                    <div class="col-8">
-                        {{movieDetail.contentRating}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-4">
-                        Running Time
-                    </div>
-                    <div class="col-8">
-                        {{movieDetail.runningTime}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-4">
-                        Overview
-                    </div>
-                    <div class="col-8">
-                        {{movieDetail.overview}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-4">
-                        Genres
-                    </div>
-                    <div class="col-8">
-                        {{movieDetail.genres}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-4">
-                        Actors
-                    </div>
-                    <div class="col-8">
-                        {{movieDetail.actors}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-4">
-                        Cover
-                    </div>
-                    <div class="col-8">
-
-                        <img :src="movieDetail.coverArt" alt="Base64 encoded image" height="200px" width="140px" />
-                    </div>
-                </div>
+            <div class="container-fluid">
+                <span v-for="movie in movies" class="movie-thumbnail" >
+                    
+                    <img :src="movie.coverArt" alt="Base64 encoded image"  />
+                </span>
             </div>
         </div>
 

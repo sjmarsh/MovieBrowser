@@ -2,20 +2,23 @@
     el: '#app',
     data() {
         return {
-            movies: null,
+            movieDetail: null,
             loading: true,
             status: null
         }
     },
     mounted() {
         axios
-            .get('/api/movie')
+            .get('/api/movieDetail')
             .then(response => {
-                this.movies = response.data;
+                this.movieDetail = response.data;
+                if (response.data.coverArt) {
+                    this.movieDetail.coverArt = 'data:image/jpg;base64,'.concat(response.data.coverArt);
+                }
                 this.status = 'Data loaded';
             })
             .catch(error => {
-                this.status = 'Unexpected error occurred while retrieving Movies';
+                this.status = 'Unexpected error occurred while retrieving Movie Details';
                 console.log(error);
             })
             .finally(
