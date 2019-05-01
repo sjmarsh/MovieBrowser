@@ -1,15 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using MovieBrowser.Models;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Advanced;
-using SixLabors.ImageSharp.Processing;
-using MovieBrowser.Models;
 
 namespace MovieBrowser.Controllers
 {
@@ -29,7 +23,7 @@ namespace MovieBrowser.Controllers
         {
             var movies = new List<Movie>();
 
-            var di = new DirectoryInfo(@"C:\Movies");
+            var di = new DirectoryInfo(@"C:\Movies");  // TODO config this.
             var directories = di.GetDirectories();
 
             foreach (var dir in directories)
@@ -40,8 +34,7 @@ namespace MovieBrowser.Controllers
                 };
                 using (var img = Image.Load(dir.FullName + "\\folder.jpg"))
                 {
-                    img.Mutate(x => x.Resize(140, 200));
-                    //img.Save("thumb.jpg");
+                    img.Mutate(x => x.Resize(160, 240));
                     movie.CoverArt = img.ToBase64String(ImageFormats.Jpeg);
                     movies.Add(movie);
                 }

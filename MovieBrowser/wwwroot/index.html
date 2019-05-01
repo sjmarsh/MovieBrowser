@@ -24,10 +24,15 @@
         </div>
         <div v-else>
             <div class="container-fluid">
-                <span v-for="movie in movies" class="movie-thumbnail" >
-                    
-                    <img :src="movie.coverArt" alt="Base64 encoded image"  />
-                </span>
+                <div class="row">
+                    <div v-for="movie in movies" class="movie-thumbnail hovereffect col-md-2 col-sm-6 col-xs-6 ">
+                        <img :src="movie.coverArt" alt="Base64 encoded image" class="img-responsive" />
+                        <div class="overlay">
+                            <h2>{{movie.title}}</h2>
+                            <a class="info" :href="'/detail.html?title=' + movie.title">Details</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 

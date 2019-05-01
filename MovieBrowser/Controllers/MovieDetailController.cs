@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using MovieBrowser.Models;
+using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using MovieBrowser.Models;
 
 namespace MovieBrowser.Controllers
 {
@@ -22,20 +20,23 @@ namespace MovieBrowser.Controllers
             _mapper = mapper;
         }
 
-        public async Task <MovieDetail> Get()
+        public async Task<MovieDetail> Get(string title)
         {
             MovieDetail result = null;
+            string moviePath = @"c:\Movies\" + title; // TODO config
 
             var serializer = new XmlSerializer(typeof(MovieDetailXml));
 
-            using (var xmlStream = new FileStream(@"c:\Movies\Big Hero 6\movie.xml", FileMode.Open))
+            var metaFilePath = moviePath + @"\movie.xml";
+
+            using (var xmlStream = new FileStream(metaFilePath, FileMode.Open))
             {
                 var movieDetail = serializer.Deserialize(xmlStream) as MovieDetailXml;
                 if (movieDetail != null)
                 {
                     result = _mapper.Map<MovieDetail>(movieDetail);
                     GetActors(movieDetail, result);
-                    await GetCoverArt(result);
+                    await GetCoverArt(moviePath, result);
                 }
             }
             
@@ -51,9 +52,9 @@ namespace MovieBrowser.Controllers
             }
         }
 
-        private static async Task GetCoverArt(MovieDetail result)
+        private static async Task GetCoverArt(string path, MovieDetail result)
         {
-            var coverPath = @"c:\Movies\Big Hero 6\folder.jpg";
+            var coverPath = path + "\\folder.jpg";
             byte[] imageArray = await System.IO.File.ReadAllBytesAsync(coverPath);
             result.CoverArt = Convert.ToBase64String(imageArray);
         }

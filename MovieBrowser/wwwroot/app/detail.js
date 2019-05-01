@@ -8,8 +8,12 @@
         }
     },
     mounted() {
+        var params = new URLSearchParams(window.location.search);
+        var title = params.get('title');
+
+
         axios
-            .get('/api/movieDetail')
+            .get('/api/movieDetail/?title=' + title)
             .then(response => {
                 this.movieDetail = response.data;
                 if (response.data.coverArt) {
