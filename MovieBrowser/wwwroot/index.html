@@ -6,9 +6,10 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/lib/styles.css" />
+    <link rel="stylesheet" href="/lib/webfonts.css" />
 
     <!--Fonts-->
     <link href="https://fonts.googleapis.com/css?family=Arimo" rel="stylesheet">
@@ -26,10 +27,15 @@
             <div class="container-fluid">
                 <div class="row">
                     <div v-for="movie in movies" class="movie-thumbnail hovereffect col-md-2 col-sm-6 col-xs-6 ">
-                        <img :src="movie.coverArt" alt="Base64 encoded image" class="img-responsive" />
+                        <img :src="movie.coverArt" :alt="movie.title" class="img-responsive" />
                         <div class="overlay">
                             <h2>{{movie.title}}</h2>
-                            <a class="info" :href="'/detail.html?title=' + movie.title">Details</a>
+                            <a class="info" :href="'/detail.html?title=' + movie.title" data-toggle="tooltip" data-placement="bottom" title="Movie Details">
+                                <i class="material-icons md-36">info</i>
+                            </a>
+                            <a class="info" :href="'/play.html?title=' + movie.title" data-toggle="tooltip" data-placement="bottom" title="Play Movie">
+                                <i class="material-icons md-36">play_circle_outline</i>
+                            </a>
                         </div>
                     </div>
                 </div>
