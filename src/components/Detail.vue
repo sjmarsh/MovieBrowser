@@ -1,24 +1,7 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/lib/styles.css" />
-
-    <!--Fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Arimo" rel="stylesheet">
-
-    <title>Movie Browser</title>
-
-</head>
-<body>
-    <div id="app" class="container-fluid">
-        <h1>Movie Details</h1>
+<template>
+  <div>
+    <h2>Movie Details</h2>
+    <div class="container-fluid">
         <div v-if="loading">
             Loading...
         </div>
@@ -96,16 +79,48 @@
         <h4>Status</h4>
         {{status}}
     </div>
+  </div>
+</template>
 
-    <!-- development version, includes helpful console warnings. TODO: use npm to install -->
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
-    <script src="/app/detail.js"></script>
-    <!-- Optional Bootstrap JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-</body>
+<script>
+  import Axios from 'axios';
+ 
+  export default {
 
-</html>
+    name: 'Detail',
+
+    props: {
+      title: {
+        type: String,
+        required: true
+      }
+    },
+
+    data() {
+      return {
+        movieDetail: {},
+        loading: false,
+        status: ''
+      }
+    },
+
+    mounted(){
+      Axios
+        .get('/api/movieDetail/?title=' + this.title)
+        .then(response => {
+            this.movieDetail = response.data;
+            if (response.data.coverArt) {
+                this.movieDetail.coverArt = 'data:image/jpg;base64,'.concat(response.data.coverArt);
+            }
+            this.status = 'Data loaded';
+        })
+        .catch(error => {
+            this.status = 'Unexpected error occurred while retrieving Movie Details';
+            console.log(error);
+        })
+        .finally(
+            () => this.loading = false
+        );
+    }
+  }
+</script>
