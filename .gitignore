@@ -333,3 +333,7 @@ ASALocalRun/
 # Local History for Visual Studio
 .localhistory/
 MovieBrowser/MovieBrowser.exe
+
+# Client dist folder
+dist/
+dist/main.js

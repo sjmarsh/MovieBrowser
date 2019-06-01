@@ -2,12 +2,21 @@
   <div class="container-fluid">
       <h1>Movies</h1>   
       <div v-if="loading">
-          Loading...
+          <div class="loader-wrapper">
+            <div class="loader">
+                <div class="loader__bar"></div>
+                <div class="loader__bar"></div>
+                <div class="loader__bar"></div>
+                <div class="loader__bar"></div>
+                <div class="loader__bar"></div>
+                <div class="loader__ball"></div>
+            </div>
+          </div>
       </div>
       <div v-else>
           <div class="container-fluid">
               <div class="row">
-                  <div v-for="movie in movies" v-bind:key="movie" class="movie-thumbnail hovereffect col-md-2 col-sm-6 col-xs-6 ">
+                  <div v-for="movie in movies" v-bind:key="movie.title" class="movie-thumbnail hovereffect col-md-2 col-sm-6 col-xs-6 ">
                       <img :src="movie.coverArt" :alt="movie.title" class="img-responsive" />
                       <div class="overlay">
                           <h2>{{movie.title}}</h2>

@@ -3,7 +3,16 @@
     <h2>Movie Details</h2>
     <div class="container-fluid">
         <div v-if="loading">
-            Loading...
+           <div class="loader-wrapper">
+            <div class="loader">
+                <div class="loader__bar"></div>
+                <div class="loader__bar"></div>
+                <div class="loader__bar"></div>
+                <div class="loader__bar"></div>
+                <div class="loader__bar"></div>
+                <div class="loader__ball"></div>
+            </div>
+          </div>
         </div>
         <div v-else>
             <div class="container">
@@ -99,7 +108,7 @@
     data() {
       return {
         movieDetail: {},
-        loading: false,
+        loading: true,
         status: ''
       }
     },
