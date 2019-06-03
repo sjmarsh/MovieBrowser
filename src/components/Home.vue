@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid">
-      <h1>Movies</h1>   
+      <h1 class="t-header">Movies</h1>   
       <div v-if="loading">
           <div class="loader-wrapper">
             <div class="loader">
@@ -14,7 +14,7 @@
           </div>
       </div>
       <div v-else>
-          <div class="container-fluid">
+          <div class="container-fluid movie-list">
               <div class="row">
                   <div v-for="movie in movies" v-bind:key="movie.title" class="movie-thumbnail hovereffect col-md-2 col-sm-6 col-xs-6 ">
                       <img :src="movie.coverArt" :alt="movie.title" class="img-responsive" />
