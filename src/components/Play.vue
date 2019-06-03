@@ -23,7 +23,6 @@
 
     data() {
       return {
-        title: null,
         moviePath: null,
         status: ''
       }

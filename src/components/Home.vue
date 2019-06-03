@@ -14,7 +14,7 @@
           </div>
       </div>
       <div v-else>
-          <div class="container-fluid movie-list">
+          <div class="container-fluid t-movie-list">
               <div class="row">
                   <div v-for="movie in movies" v-bind:key="movie.title" class="movie-thumbnail hovereffect col-md-2 col-sm-6 col-xs-6 ">
                       <img :src="movie.coverArt" :alt="movie.title" class="img-responsive" />

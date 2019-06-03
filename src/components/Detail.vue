@@ -15,7 +15,7 @@
           </div>
         </div>
         <div v-else>
-            <div class="container">
+            <div class="container t-movie-detail">
                 <div class="row">
                     <div class="col-4">
                         Title

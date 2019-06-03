@@ -24,7 +24,7 @@ describe('Home.vue', () => {
     wrapper.setProps({loading: true});
     var loader = wrapper.find('.loader');
     expect(loader.isVisible()).toBe(true);
-    var movieList = wrapper.find('.movie-list');
+    var movieList = wrapper.find('.t-movie-list');
     expect(movieList.exists()).toBe(false);
   });
 
@@ -41,7 +41,7 @@ describe('Home.vue', () => {
       expect(wrapper.vm.loading).toBe(false);
       var loader = wrapper.find('.loader');
       expect(loader.exists()).toBe(false);
-      var movieList = wrapper.find('.movie-list');
+      var movieList = wrapper.find('.t-movie-list');
       expect(movieList.isVisible()).toBe(true);
       done();
     })
