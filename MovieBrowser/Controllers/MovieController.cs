@@ -1,9 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MediatR;
+using Microsoft.AspNetCore.Mvc;
 using MovieBrowser.Models;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Processing;
-using System.Collections.Generic;
-using System.IO;
+using System.Threading.Tasks;
 
 namespace MovieBrowser.Controllers
 {
@@ -11,36 +9,17 @@ namespace MovieBrowser.Controllers
     [ApiController]
     public class MovieController : ControllerBase
     {
-     
-        public IActionResult Get()
-        {
-            var result = GetMovies();
+        private readonly IMediator mediator;
 
-            return  Ok(result);
+        public MovieController(IMediator mediator)
+        {
+            this.mediator = mediator;
         }
 
-        private List<Movie> GetMovies()
+        public async Task<IActionResult> Get()
         {
-            var movies = new List<Movie>();
-
-            var di = new DirectoryInfo(@"C:\Movies");  // TODO config this.
-            var directories = di.GetDirectories();
-
-            foreach (var dir in directories)
-            {
-                var movie = new Movie {
-                    Title = dir.Name,
-                    Path = dir.FullName
-                };
-                using (var img = Image.Load(dir.FullName + "\\folder.jpg"))
-                {
-                    img.Mutate(x => x.Resize(160, 240));
-                    movie.CoverArt = img.ToBase64String(ImageFormats.Jpeg);
-                    movies.Add(movie);
-                }
-            }
-            
-            return movies;
-         }
+            var result = await mediator.Send(new MovieCommand());
+            return  Ok(result);
+        }
     }
 }
