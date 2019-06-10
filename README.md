@@ -17,9 +17,9 @@ Simple .Net Core & Vue.js app to browse and play movie files stored on a local d
 [https://www.hanselman.com/blog/BrainstormingCreatingASmallSingleSelfcontainedExecutableOutOfANETCoreApplication.aspx](https://www.hanselman.com/blog/BrainstormingCreatingASmallSingleSelfcontainedExecutableOutOfANETCoreApplication.aspx "https://www.hanselman.com/blog/BrainstormingCreatingASmallSingleSelfcontainedExecutableOutOfANETCoreApplication.aspx")
 
 ### Todo ###
-- Unit Tests
+- <del>Unit Tests</del>
 - Configuration for Movie folder path
-- Paging (or load on scroll)
+- <del>Paging (or load on scroll)</del>
 - Use npm for bootstrap
 - Better status indicators
 - Error page (incorrect route)
