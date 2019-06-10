@@ -32,9 +32,9 @@ describe('Home.vue', () => {
 
     const wrapper = shallowMount(Home, { stubs: { RouterLink: RouterLinkStub } });
 
-    moxios.stubRequest('/api/movie', {
+    moxios.stubRequest('/api/movie?skip=0&take=10', {
       status: 200,
-      response: [{"title":"Superman","path":"C:\\Movies\\Superman","coverArt":"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2w" }]
+      response: {"movies":[{"title":"Superman","path":"C:\\Movies\\Superman","coverArt":"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2w" }]}
     });
 
     moxios.wait(() => {
@@ -52,15 +52,21 @@ describe('Home.vue', () => {
 
     const wrapper = shallowMount(Home, { stubs: { RouterLink: RouterLinkStub } });
 
-    moxios.stubRequest('/api/movie', {
+    moxios.stubRequest('/api/movie?skip=0&take=10', {
       status: 200,
-      response: [{"title":"Superman","path":"C:\\Movies\\Superman","coverArt":"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2w" }]
+      response: {"movies":[{"title":"Superman","path":"C:\\Movies\\Superman","coverArt":"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2w" }], "totalPages":1}
     });
 
     moxios.wait(() => {
-      expect(wrapper.vm.movies.length).toEqual(1);
-      expect(wrapper.vm.movies[0].title).toEqual('Superman');
-      expect(wrapper.vm.status).toEqual('Data loaded');      
+      let model = wrapper.vm;
+      expect(model.movies.length).toEqual(1);
+      expect(model.movies[0].title).toEqual('Superman');
+      expect(model.status).toEqual('Data loaded');    
+      expect(model.currentPage).toEqual(1);
+      expect(model.totalPages).toEqual(1);
+      expect(model.morePages).toBe(false);
+      expect(model.prevPages).toBe(false);
+
       done();
     });
 

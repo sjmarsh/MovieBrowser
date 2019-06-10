@@ -1,0 +1,29 @@
+﻿.arrow-up {
+    width: 0;
+    height: 0;
+    position: absolute;
+    left: 95%;
+    top: 45%;
+    border-style: solid;
+    border-width: 0 20px 33.2px 20px;
+    border-color: transparent transparent #70bfd8 transparent;
+}
+
+    .arrow-up:hover {
+        border-color: transparent transparent #b1cad4 transparent;
+    }
+
+.arrow-down {
+    width: 0;
+    height: 0;
+    position: absolute;
+    left: 95%;
+    top: 55%;
+    border-style: solid;
+    border-width: 33.2px 20px 0 20px;
+    border-color: #70bfd8 transparent transparent transparent;
+}
+
+    .arrow-down:hover {
+        border-color: #b1cad4 transparent transparent transparent
+    }

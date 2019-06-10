@@ -15,11 +15,11 @@ namespace MovieBrowser.Controllers
         {
             this.mediator = mediator;
         }
-
-        public async Task<IActionResult> Get()
+                       
+        public async Task<IActionResult> Get([FromQuery]MovieCommand command)
         {
-            var result = await mediator.Send(new MovieCommand());
-            return  Ok(result);
+            var result = await mediator.Send(command);
+            return Ok(result);
         }
     }
 }
