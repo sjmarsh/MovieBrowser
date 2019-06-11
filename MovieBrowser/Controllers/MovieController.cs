@@ -16,7 +16,7 @@ namespace MovieBrowser.Controllers
             this.mediator = mediator;
         }
                        
-        public async Task<IActionResult> Get([FromQuery]MovieCommand command)
+        public async Task<IActionResult> Get([FromQuery]MovieQuery command)
         {
             var result = await mediator.Send(command);
             return Ok(result);

@@ -10,17 +10,17 @@ using SixLabors.ImageSharp.Processing;
 
 namespace MovieBrowser.Models
 {
-    public class MovieCommand : IRequest<MovieCommandResult>
+    public class MovieQuery : IRequest<MovieQueryResult>
     {
         public int Skip { get; set; }
         public int Take { get; set; }
     }
 
-    public class MovieCommandHandler : IRequestHandler<MovieCommand, MovieCommandResult>
+    public class MovieQueryHandler : IRequestHandler<MovieQuery, MovieQueryResult>
     {
-        public async Task<MovieCommandResult> Handle(MovieCommand request, CancellationToken cancellationToken)
+        public async Task<MovieQueryResult> Handle(MovieQuery request, CancellationToken cancellationToken)
         {
-            var result = new MovieCommandResult();
+            var result = new MovieQueryResult();
 
             var di = new DirectoryInfo(@"C:\Movies");  // TODO config this.
             var directories = di.GetDirectories();
@@ -52,13 +52,13 @@ namespace MovieBrowser.Models
                 }
             }
             
-            return result;
+            return await Task.FromResult(result);
         }
     }
 
-    public class MovieCommandResult
+    public class MovieQueryResult
     {
-        public MovieCommandResult()
+        public MovieQueryResult()
         {
             Movies = new List<Movie>();
         }

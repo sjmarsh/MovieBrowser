@@ -18,7 +18,7 @@ namespace MovieBrowser.Controllers
 
         public async Task<IActionResult> Get(string title)
         {
-            var result = await mediator.Send(new MovieDetailCommand { Title = title});
+            var result = await mediator.Send(new MovieDetailQuery { Title = title});
             return Ok(result);
         }
     }

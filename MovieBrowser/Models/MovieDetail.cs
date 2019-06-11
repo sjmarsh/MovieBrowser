@@ -10,24 +10,24 @@ using MediatR;
 
 namespace MovieBrowser.Models
 {
-    public class MovieDetailCommand : IRequest<MovieDetailCommandResult>
+    public class MovieDetailQuery : IRequest<MovieDetailQueryResult>
     {
         [Required]
         public string Title { get; set; }
     }
 
-    public class MovieDetailCommandHandler : IRequestHandler<MovieDetailCommand, MovieDetailCommandResult>
+    public class MovieDetailQueryHandler : IRequestHandler<MovieDetailQuery, MovieDetailQueryResult>
     {
         private readonly IMapper mapper;
 
-        public MovieDetailCommandHandler(IMapper mapper)
+        public MovieDetailQueryHandler(IMapper mapper)
         {
             this.mapper = mapper;
         }
 
-        public async Task<MovieDetailCommandResult> Handle(MovieDetailCommand request, CancellationToken cancellationToken)
+        public async Task<MovieDetailQueryResult> Handle(MovieDetailQuery request, CancellationToken cancellationToken)
         {
-            MovieDetailCommandResult result = null;
+            MovieDetailQueryResult result = null;
             string moviePath = @"c:\Movies\" + request.Title; // TODO config
 
             var serializer = new XmlSerializer(typeof(MovieDetailXml));
@@ -39,16 +39,16 @@ namespace MovieBrowser.Models
                 var movieDetail = serializer.Deserialize(xmlStream) as MovieDetailXml;
                 if (movieDetail != null)
                 {
-                    result = mapper.Map<MovieDetailCommandResult>(movieDetail);
+                    result = mapper.Map<MovieDetailQueryResult>(movieDetail);
                     GetActors(movieDetail, result);
                     await GetCoverArt(moviePath, result);
                 }
             }
 
-            return result;
+            return await Task.FromResult(result);
         }
 
-        private void GetActors(MovieDetailXml movieDetail, MovieDetailCommandResult result)
+        private void GetActors(MovieDetailXml movieDetail, MovieDetailQueryResult result)
         {
             if (movieDetail.Persons != null && movieDetail.Persons.Any())
             {
@@ -57,7 +57,7 @@ namespace MovieBrowser.Models
             }
         }
 
-        private static async Task GetCoverArt(string path, MovieDetailCommandResult result)
+        private static async Task GetCoverArt(string path, MovieDetailQueryResult result)
         {
             var coverPath = path + "\\folder.jpg";
             byte[] imageArray = await File.ReadAllBytesAsync(coverPath);
@@ -65,7 +65,7 @@ namespace MovieBrowser.Models
         }
     }
 
-    public class MovieDetailCommandResult
+    public class MovieDetailQueryResult
     {
         public string LocalTitle { get; set; }
 

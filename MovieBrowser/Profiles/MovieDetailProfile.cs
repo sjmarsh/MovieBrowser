@@ -7,7 +7,7 @@ namespace MovieBrowser.Profiles
     {
         public MovieDetailProfile()
         {
-            CreateMap<MovieDetailXml, MovieDetailCommandResult>();
+            CreateMap<MovieDetailXml, MovieDetailQueryResult>();
         }
     }
 }
