@@ -1,6 +1,9 @@
 ﻿using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using MovieBrowser.Models;
 
 namespace MovieBrowser.Controllers
 {
@@ -8,10 +11,18 @@ namespace MovieBrowser.Controllers
     [ApiController]
     public class PlayController : ControllerBase
     {
-        [HttpGet]
-        public IActionResult Get(string title)
+        private readonly IMediator mediator;
+
+        public PlayController(IMediator mediator)
         {
-            string moviePath = @"c:\Movies\" + title; // TODO config
+            this.mediator = mediator;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Get(string title)
+        {
+            var settings = await mediator.Send(new SettingsQuery());
+            string moviePath = Path.Combine(settings.MoviesFolderPath, title);
 
             var di = new DirectoryInfo(moviePath);
             var movieFile = di.GetFiles().FirstOrDefault(f => f.Extension == ".mp4" || f.Extension == ".m4v");

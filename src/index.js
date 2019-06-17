@@ -5,6 +5,7 @@ import App from './App.vue';
 import Home from './components/Home.vue';
 import Detail from './components/Detail.vue';
 import Play from './components/Play.vue';
+import Settings from './components/Settings.vue';
 
 Vue.use(VueRouter);
 
@@ -13,7 +14,8 @@ const router = new VueRouter({
     { path: '/', redirect: 'home' },
     { path: '/home', name: 'home', component: Home, props: false },
     { path: '/detail', name: 'detail', component: Detail, props: true },
-    { path: '/play', name: 'play', component: Play, props: true }
+    { path: '/play', name: 'play', component: Play, props: true },
+    { path: '/settings', name: 'settings', component: Settings, props: false },
   ]
 });
 

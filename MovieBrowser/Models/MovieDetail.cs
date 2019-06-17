@@ -19,16 +19,19 @@ namespace MovieBrowser.Models
     public class MovieDetailQueryHandler : IRequestHandler<MovieDetailQuery, MovieDetailQueryResult>
     {
         private readonly IMapper mapper;
+        private readonly IMediator mediator;
 
-        public MovieDetailQueryHandler(IMapper mapper)
+        public MovieDetailQueryHandler(IMapper mapper, IMediator mediator)
         {
             this.mapper = mapper;
+            this.mediator = mediator;
         }
 
         public async Task<MovieDetailQueryResult> Handle(MovieDetailQuery request, CancellationToken cancellationToken)
         {
             MovieDetailQueryResult result = null;
-            string moviePath = @"c:\Movies\" + request.Title; // TODO config
+            var settings = await mediator.Send(new SettingsQuery());
+            string moviePath = Path.Combine(settings.MoviesFolderPath, request.Title); 
 
             var serializer = new XmlSerializer(typeof(MovieDetailXml));
 

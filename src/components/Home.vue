@@ -1,49 +1,55 @@
 <template>
   <div class="container-fluid">
-      <h1 class="t-header">Movies</h1>   
-      <div v-if="loading">
-          <div class="loader-wrapper">
-            <div class="loader">
-                <div class="loader__bar"></div>
-                <div class="loader__bar"></div>
-                <div class="loader__bar"></div>
-                <div class="loader__bar"></div>
-                <div class="loader__bar"></div>
-                <div class="loader__ball"></div>
-            </div>
-          </div>
-      </div>
-      <div v-else>
-          <div class="container-fluid t-movie-list">
-              <div class="row">
-                <div v-for="movie in movies" v-bind:key="movie.title" class="movie-thumbnail hovereffect col-md-2 col-sm-6 col-xs-6 ">
-                    <img :src="movie.coverArt" :alt="movie.title" class="img-responsive" />
-                    <div class="overlay">
-                        <h2>{{movie.title}}</h2>
-                        <router-link :to="{ name: 'detail', params: { title: movie.title }}" class="info" data-toggle="tooltip" data-placement="bottom" title="Movie Details">
-                          <i class="material-icons md-36">info</i>
-                        </router-link>
-                        <router-link :to="{ name: 'play', params: { title: movie.title }}" class="info" data-toggle="tooltip" data-placement="bottom" title="Play Movie">
-                            <i class="material-icons md-36">play_circle_outline</i>
-                        </router-link>                              
-                    </div>
-                </div>  
-              </div>
-              <div class="row">
-                  <div v-if="prevPages">
-                    <div class="arrow-up" v-on:click="getMovies('prev')"/>
-                  </div>
-                  <div v-if="morePages">
-                    <div class="arrow-down" v-on:click="getMovies('next')"/>
-                  </div>
-              </div>
-          </div>
-      </div>
-
-      <!--TODO: replace with toaster-->
-      <h4>Status</h4>
-      {{status}}
+    <h1 class="t-header">Movies</h1>   
+    <div class="settings-button">
+      <router-link :to="{ name: 'settings'}" data-toggle="tooltip" data-placement="bottom" title="Settings">
+          <i class="material-icons md-48">settings</i>
+      </router-link>
     </div>
+    <div v-if="loading">
+        <div class="loader-wrapper">
+          <div class="loader">
+              <div class="loader__bar"></div>
+              <div class="loader__bar"></div>
+              <div class="loader__bar"></div>
+              <div class="loader__bar"></div>
+              <div class="loader__bar"></div>
+              <div class="loader__ball"></div>
+          </div>
+        </div>
+    </div>
+    <div v-else>
+      <div class="container-fluid t-movie-list">
+          <div class="row">
+            <div v-for="movie in movies" v-bind:key="movie.title" class="movie-thumbnail hovereffect col-md-2 col-sm-6 col-xs-6 ">
+                <img :src="movie.coverArt" :alt="movie.title" class="img-responsive" />
+                <div class="overlay">
+                    <h2>{{movie.title}}</h2>
+                    <router-link :to="{ name: 'detail', params: { title: movie.title }}" class="info" data-toggle="tooltip" data-placement="bottom" title="Movie Details">
+                      <i class="material-icons md-36">info</i>
+                    </router-link>
+                    <router-link :to="{ name: 'play', params: { title: movie.title }}" class="info" data-toggle="tooltip" data-placement="bottom" title="Play Movie">
+                        <i class="material-icons md-36">play_circle_outline</i>
+                    </router-link>                              
+                </div>
+            </div>  
+          </div>
+          <div class="row">
+              <div v-if="prevPages">
+                <div class="arrow-up" v-on:click="getMovies('prev')"/>
+              </div>
+              <div v-if="morePages">
+                <div class="arrow-down" v-on:click="getMovies('next')"/>
+              </div>
+          </div>
+      </div>
+    </div>
+    
+
+    <!--TODO: replace with toaster-->
+    <h4>Status</h4>
+    {{status}}
+  </div>
 </template>
 
 <script>
@@ -66,13 +72,14 @@
         Axios
           .get('/api/movie', {params: {skip: 0, take: pageSize}})
           .then(response => {
-            this.movies = response.data.movies;
-            this.status = 'Data loaded';
-
+            this.movies = response.data.movies;            
             if(response.data.movies.length > 0){
                 this.currentPage = 1;
                 this.totalPages = response.data.totalPages;
                 this.morePages = response.data.totalPages > 1;
+                this.status = 'Data loaded';
+            } else {
+              this.status = 'No Movies. Check the settings to change the movie location.'
             }
           })
           .catch(error => {

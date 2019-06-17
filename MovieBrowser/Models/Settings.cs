@@ -41,6 +41,10 @@ namespace MovieBrowser.Models
                     MoviesFolderPath = env.ContentRootPath
                 };
             }
+            else if(!Directory.Exists(settings.MoviesFolderPath))
+            {
+                settings.MoviesFolderPath = env.ContentRootPath;
+            }
             
             return Task.FromResult(settings);
         }

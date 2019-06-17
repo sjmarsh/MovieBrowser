@@ -18,11 +18,20 @@ namespace MovieBrowser.Models
 
     public class MovieQueryHandler : IRequestHandler<MovieQuery, MovieQueryResult>
     {
+        private readonly IMediator mediator;
+
+        public MovieQueryHandler(IMediator mediator)
+        {
+            this.mediator = mediator;
+        }
+
         public async Task<MovieQueryResult> Handle(MovieQuery request, CancellationToken cancellationToken)
         {
             var result = new MovieQueryResult();
 
-            var di = new DirectoryInfo(@"C:\Movies");  // TODO config this.
+            var settings = await mediator.Send(new SettingsQuery());
+
+            var di = new DirectoryInfo(settings.MoviesFolderPath); 
             var directories = di.GetDirectories();
             List<DirectoryInfo> pagedDirectories;
 
@@ -44,11 +53,15 @@ namespace MovieBrowser.Models
                     Title = dir.Name,
                     Path = dir.FullName
                 };
-                using (var img = await Task.Run(() => Image.Load(dir.FullName + "\\folder.jpg")))
+                var imageFile = Path.Combine(dir.FullName, "folder.jpg");
+                if (File.Exists(imageFile))
                 {
-                    img.Mutate(x => x.Resize(160, 240));
-                    movie.CoverArt = img.ToBase64String(ImageFormats.Jpeg);
-                    result.Movies.Add(movie);
+                    using (var img = await Task.Run(() => Image.Load(imageFile)))
+                    {
+                        img.Mutate(x => x.Resize(160, 240));
+                        movie.CoverArt = img.ToBase64String(ImageFormats.Jpeg);
+                        result.Movies.Add(movie);
+                    }
                 }
             }
             

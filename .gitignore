@@ -337,3 +337,4 @@ MovieBrowser/MovieBrowser.exe
 # Client dist folder
 dist/
 dist/main.js
+MovieBrowser/settings.json

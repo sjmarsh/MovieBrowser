@@ -1,6 +1,11 @@
 <template>
   <div>
     <h2>Movie Details</h2>
+    <div class="home-button">
+      <router-link :to="{ name: 'home'}" data-toggle="tooltip" data-placement="bottom" title="Home">
+          <i class="material-icons md-48">home</i>
+      </router-link>
+    </div> 
     <div class="container-fluid">
         <div v-if="loading">
            <div class="loader-wrapper">
