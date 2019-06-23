@@ -56,10 +56,12 @@ namespace MovieBrowser
             }
 
             app.UseHttpsRedirection();
+           
+            app.UseRouting();
 
-            app.UseRouting(routes =>
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapControllers();
+                endpoints.MapControllers();
             });
 
             app.UseAuthorization();
