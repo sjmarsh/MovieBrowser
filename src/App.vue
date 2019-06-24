@@ -14,3 +14,6 @@
 
 </script>
 
+<style>
+  @import '~vuejs-noty/dist/vuejs-noty.css';
+</style>

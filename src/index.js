@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
+import VueNoty from 'vuejs-noty';
 
 import App from './App.vue';
 import Home from './components/Home.vue';
@@ -7,7 +8,10 @@ import Detail from './components/Detail.vue';
 import Play from './components/Play.vue';
 import Settings from './components/Settings.vue';
 
+import 'vuejs-noty/dist/vuejs-noty.css';
+
 Vue.use(VueRouter);
+Vue.use(VueNoty, {timeout: 3000, progressBar: false, layout: 'topRight'});
 
 const router = new VueRouter({
   routes: [

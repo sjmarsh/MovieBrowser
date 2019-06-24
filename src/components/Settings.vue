@@ -40,7 +40,6 @@
         settings: { 
           moviesFolderPath: ''
         },
-        status: null,
         loading: true
       }
     },
@@ -50,7 +49,7 @@
           this.settings = response.data;
         })
         .catch(error => {
-          this.status = 'Unexpected error occurred while retrieving Settings';
+          this.$noty.error('Unexpected error occurred while retrieving Settings');
           console.log(error);
         })
         .finally(
@@ -62,10 +61,10 @@
           this.loading = true;
           Axios.post('/api/settings', this.settings)
           .then(response => {
-            this.status = 'Saved: ' + response.data;
+            this.$noty.success('Saved: ' + response.data);
           })
           .catch(error => {
-            this.status = 'Unexpected error occurred while saving Settings';
+            this.$noty.error('Unexpected error occurred while saving Settings');
             console.log(error);
           })
           .finally(

@@ -28,8 +28,7 @@
 
     data() {
       return {
-        moviePath: null,
-        status: ''
+        moviePath: null
       }
     },
 

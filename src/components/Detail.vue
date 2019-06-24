@@ -88,10 +88,6 @@
                 </div>
             </div>
         </div>
-
-        <!--TODO: replace with toaster-->
-        <h4>Status</h4>
-        {{status}}
     </div>
   </div>
 </template>
@@ -113,8 +109,7 @@
     data() {
       return {
         movieDetail: {},
-        loading: true,
-        status: ''
+        loading: true
       }
     },
 
@@ -126,10 +121,10 @@
             if (response.data.coverArt) {
                 this.movieDetail.coverArt = 'data:image/jpg;base64,'.concat(response.data.coverArt);
             }
-            this.status = 'Data loaded';
+            this.$noty.success('Movie details loaded');
         })
         .catch(error => {
-            this.status = 'Unexpected error occurred while retrieving Movie Details';
+            this.$noty.error('Unexpected error occurred while retrieving Movie Details');
             console.log(error);
         })
         .finally(

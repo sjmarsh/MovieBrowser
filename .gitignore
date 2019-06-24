@@ -338,3 +338,5 @@ MovieBrowser/MovieBrowser.exe
 dist/
 dist/main.js
 MovieBrowser/settings.json
+dist/main.js
+MovieBrowser/wwwroot/app/main.js

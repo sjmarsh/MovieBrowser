@@ -44,16 +44,12 @@
           </div>
       </div>
     </div>
-    
-
-    <!--TODO: replace with toaster-->
-    <h4>Status</h4>
-    {{status}}
   </div>
 </template>
 
 <script>
   import Axios from 'axios';
+  
   const pageSize = 10;
   
   export default {
@@ -77,13 +73,14 @@
                 this.currentPage = 1;
                 this.totalPages = response.data.totalPages;
                 this.morePages = response.data.totalPages > 1;
-                this.status = 'Data loaded';
+                this.$noty.success('Movies loaded');
             } else {
-              this.status = 'No Movies. Check the settings to change the movie location.'
+              this.$noty.warn('No Movies. Check the settings to change the movie location.');
+              
             }
           })
           .catch(error => {
-              this.status = 'Unexpected error occurred while retrieving Movies';
+              this.$noty.error('Unexpected error occurred while retrieving Movies');
               console.log(error);
           })
           .finally(
@@ -104,13 +101,13 @@
           .get('/api/movie', {params: {skip: (this.currentPage - 1) * pageSize, take: pageSize}})
           .then(response => {
             this.movies = response.data.movies;
-            this.status = 'Data loaded';
+            this.$noty.success('Movies loaded');
             this.totalPages = response.data.totalPages;
             this.morePages = this.currentPage < response.data.totalPages;
             this.prevPages = this.currentPage > 1;
           })
           .catch(error => {
-              this.status = 'Unexpected error occurred while retrieving Movies';
+              this.$noty.error('Unexpected error occurred while retrieving Movies');
               console.log(error);
           })
           .finally(
@@ -120,4 +117,5 @@
     }
 
   }
+
 </script>
