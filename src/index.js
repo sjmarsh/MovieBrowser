@@ -9,7 +9,14 @@ import Play from './components/Play.vue';
 import Settings from './components/Settings.vue';
 import ProgressIndicator from './components/ProgressIndicator.vue';
 
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import 'vuejs-noty/dist/vuejs-noty.css';
+
+import './lib/arrows.css';
+import './lib/loader.css';
+import './lib/styles.css';
+import './lib/webfonts.css';
 
 Vue.use(VueRouter);
 Vue.use(VueNoty, {timeout: 3000, progressBar: false, layout: 'topRight'});

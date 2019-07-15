@@ -5,7 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\fonts\MaterialIcons-Regular.woff2" />
+    <Compile Remove="wwwroot\fonts\**" />
+    <Content Remove="wwwroot\fonts\**" />
+    <EmbeddedResource Remove="wwwroot\fonts\**" />
+    <None Remove="wwwroot\fonts\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,15 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="wwwroot\fonts\MaterialIcons-Regular.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\fonts\MaterialIcons-Regular.woff">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot\fonts\MaterialIcons-Regular.woff2">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Update="wwwroot\index.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
