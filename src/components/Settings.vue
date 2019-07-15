@@ -7,16 +7,7 @@
       </router-link>
     </div> 
     <div v-if="loading">
-        <div class="loader-wrapper">
-          <div class="loader">
-              <div class="loader__bar"></div>
-              <div class="loader__bar"></div>
-              <div class="loader__bar"></div>
-              <div class="loader__bar"></div>
-              <div class="loader__bar"></div>
-              <div class="loader__ball"></div>
-          </div>
-        </div>
+        <progress-indicator/>
     </div>
     <div v-else>
       <div class="settings">

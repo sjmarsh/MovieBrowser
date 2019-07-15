@@ -7,11 +7,13 @@ import Home from './components/Home.vue';
 import Detail from './components/Detail.vue';
 import Play from './components/Play.vue';
 import Settings from './components/Settings.vue';
+import ProgressIndicator from './components/ProgressIndicator.vue';
 
 import 'vuejs-noty/dist/vuejs-noty.css';
 
 Vue.use(VueRouter);
 Vue.use(VueNoty, {timeout: 3000, progressBar: false, layout: 'topRight'});
+Vue.component("progress-indicator", ProgressIndicator);
 
 const router = new VueRouter({
   routes: [
